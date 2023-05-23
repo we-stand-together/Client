@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Main from './pages/Main';
 import { GlobalContext } from './state/GlobalContext';
 import { useState } from 'react';
+import Form from './pages/Form';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ export default function App() {
         <Stack.Navigator initialRouteName='signup'>
           <Stack.Screen name="signup" component={Signup}/>
           <Stack.Screen name="main" component={Main}/>
+          <Stack.Screen name="form" component={Form} />
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalContext.Provider>

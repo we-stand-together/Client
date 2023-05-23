@@ -1,12 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Svg, SvgUri } from 'react-native-svg';
 import { NavigationContainer, Theme } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NativeStackNavigationOptions, createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from './pages/Signup';
 import Main from './pages/Main';
 import { GlobalContext } from './state/GlobalContext';
 import { useState } from 'react';
 import OnBoarding from './pages/OnBoarding';
+import LogoSvg from './assets/wst logo.svg';
+import { View } from 'react-native/types';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,10 +25,17 @@ const MyTheme: Theme = {
 
 export default function App() {
   const [placeholder, setPlaceholder] = useState('my placeholder');
+
+  const screenOptions: NativeStackNavigationOptions = {
+    title: "WST",
+    headerTitleAlign: 'center',
+    headerBackVisible: false,
+  };
+
   return (
     <GlobalContext.Provider value={{ placeholder, setPlaceholder }}>
       <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator initialRouteName='onBoarding'>
+        <Stack.Navigator initialRouteName='onBoarding' screenOptions={screenOptions}>
           <Stack.Screen name="signup" component={Signup} />
           <Stack.Screen name="main" component={Main} />
           <Stack.Screen name="onBoarding" component={OnBoarding} />
@@ -36,12 +44,3 @@ export default function App() {
     </GlobalContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

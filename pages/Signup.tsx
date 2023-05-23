@@ -25,7 +25,9 @@ const Signup: React.FunctionComponent<SignUp> = (props) => {
       const success = await SignIn(phoneNumber, passcode);
       console.log('sign in successfull:', success);
       console.log('token from storage:', await AsyncStorage.getItem('AUTH_TOKEN'));
-      props.navigation.navigate('form')
+      if (success) {
+        props.navigation.navigate('form')
+      }
     }
 
   return (

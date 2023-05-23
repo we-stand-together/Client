@@ -1,5 +1,4 @@
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { Svg, SvgUri } from 'react-native-svg';
 import { NavigationContainer, Theme } from '@react-navigation/native';
 import { NativeStackNavigationOptions, createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from './pages/Signup';
@@ -8,8 +7,6 @@ import { GlobalContext } from './state/GlobalContext';
 import { useState } from 'react';
 import Form from './pages/Form';
 import OnBoarding from './pages/OnBoarding';
-import LogoSvg from './assets/wst logo.svg';
-import { View } from 'react-native/types';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,8 +44,8 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
     <GlobalContext.Provider value={{placeholder, setPlaceholder}}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName='onBoarding'>
+      <NavigationContainer theme={MyTheme}>
+        <Stack.Navigator screenOptions={screenOptions} initialRouteName='onBoarding'>
           <Stack.Screen name="signup" component={Signup}/>
           <Stack.Screen name="main" component={Main}/>
           <Stack.Screen name="form" component={Form} />

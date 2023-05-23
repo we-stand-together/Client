@@ -14,5 +14,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10
+  },
+  title: {
+    color: '#6b2272',
+    fontSize: 30,
+    fontWeight: '600',
   }
 });

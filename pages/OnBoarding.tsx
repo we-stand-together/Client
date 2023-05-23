@@ -16,7 +16,7 @@ const OnBoarding: React.FunctionComponent<OnBoardingProps> = (props) => {
     return (
         <View style={base.centered}>
             <Title style={base.title}>Welcome</Title>
-            <Text style={base.text}>We Stand Together is an app for family members, freinds, colleagues, and people that want to help victims of domestic abuse and to help those suffering from domestic abuse themselves</Text>
+            <Text variant='bodyMedium'>We Stand Together is an app for family members, freinds, colleagues, and people that want to help victims of domestic abuse and to help those suffering from domestic abuse themselves</Text>
             <Button onPress={handleNextPage}>Next</Button>
         </View>
     );

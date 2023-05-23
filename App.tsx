@@ -1,3 +1,4 @@
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Svg, SvgUri } from 'react-native-svg';
 import { NavigationContainer, Theme } from '@react-navigation/native';
 import { NativeStackNavigationOptions, createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -23,6 +24,16 @@ const MyTheme: Theme = {
   },
 };
 
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#6b2272',
+    accent: '#e9cae7',
+  }
+};
+
 export default function App() {
   const [placeholder, setPlaceholder] = useState('my placeholder');
 
@@ -33,6 +44,7 @@ export default function App() {
   };
 
   return (
+    <PaperProvider theme={theme}>
     <GlobalContext.Provider value={{ placeholder, setPlaceholder }}>
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator initialRouteName='onBoarding' screenOptions={screenOptions}>
@@ -42,5 +54,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalContext.Provider>
+    </PaperProvider>
   );
 }

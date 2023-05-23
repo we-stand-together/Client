@@ -19,11 +19,5 @@ export default StyleSheet.create({
     color: '#6b2272',
     fontSize: 30,
     fontWeight: '600',
-  },
-  text: {
-    color: '#000000',
-    fontSize: 20,
-    letterSpacing: 2,
-    textAlign: 'justify',
   }
 });

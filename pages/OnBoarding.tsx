@@ -34,7 +34,7 @@ const OnBoarding: React.FunctionComponent<OnBoardingProps> = (props) => {
             {!loading && 
             <>
                 <Title>Welcome</Title>
-                <Text>We Stand Together is an app for family members, freinds, colleagues, and people that want to help victims of domestic abuse and to help those suffering from domestic abuse themselves</Text>
+                <Text variant='bodyMedium'>We Stand Together is an app for family members, freinds, colleagues, and people that want to help victims of domestic abuse and to help those suffering from domestic abuse themselves</Text>
                 <Button onPress={handleNextPage}>Next</Button>
             </>
             }
@@ -44,7 +44,6 @@ const OnBoarding: React.FunctionComponent<OnBoardingProps> = (props) => {
                 <Button onPress={() => checkLogin()}>refresh</Button>
             </>
             }
-            
         </View>
     );
 };

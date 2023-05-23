@@ -19,5 +19,10 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    color: '#6b2272',
+    fontSize: 30,
+    fontWeight: '600',
   }
 });

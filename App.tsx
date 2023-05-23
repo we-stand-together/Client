@@ -7,6 +7,7 @@ import { GlobalContext } from './state/GlobalContext';
 import { useState } from 'react';
 import Form from './pages/Form';
 import OnBoarding from './pages/OnBoarding';
+import MyComponent from './components/MyComponent';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,11 +46,12 @@ export default function App() {
     <PaperProvider theme={theme}>
     <GlobalContext.Provider value={{placeholder, setPlaceholder}}>
       <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator screenOptions={screenOptions} initialRouteName='onBoarding'>
+        <Stack.Navigator screenOptions={screenOptions} initialRouteName='main'>
           <Stack.Screen name="signup" component={Signup}/>
           <Stack.Screen name="main" component={Main}/>
           <Stack.Screen name="form" component={Form} />
           <Stack.Screen name="onBoarding" component={OnBoarding}/>
+          <Stack.Screen name='navbar' component={MyComponent} />
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalContext.Provider>

@@ -14,5 +14,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });

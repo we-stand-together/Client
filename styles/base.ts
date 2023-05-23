@@ -7,4 +7,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  centeredScroll: {
+    flexGrow: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10
+  }
 });

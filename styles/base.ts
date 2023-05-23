@@ -15,6 +15,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
     padding: 10
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   title: {
     color: '#6b2272',
     fontSize: 30,

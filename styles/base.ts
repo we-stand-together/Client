@@ -6,6 +6,7 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 10
   },
   centeredScroll: {
     flexGrow: 1,

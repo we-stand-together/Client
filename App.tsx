@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Main from './pages/Main';
 import { GlobalContext } from './state/GlobalContext';
 import { useState } from 'react';
+import Form from './pages/Form';
 import OnBoarding from './pages/OnBoarding';
 import LogoSvg from './assets/wst logo.svg';
 import { View } from 'react-native/types';
@@ -45,12 +46,13 @@ export default function App() {
 
   return (
     <PaperProvider theme={theme}>
-    <GlobalContext.Provider value={{ placeholder, setPlaceholder }}>
-      <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator initialRouteName='onBoarding' screenOptions={screenOptions}>
-          <Stack.Screen name="signup" component={Signup} />
-          <Stack.Screen name="main" component={Main} />
-          <Stack.Screen name="onBoarding" component={OnBoarding} />
+    <GlobalContext.Provider value={{placeholder, setPlaceholder}}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='onBoarding'>
+          <Stack.Screen name="signup" component={Signup}/>
+          <Stack.Screen name="main" component={Main}/>
+          <Stack.Screen name="form" component={Form} />
+          <Stack.Screen name="onBoarding" component={OnBoarding}/>
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalContext.Provider>

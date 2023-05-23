@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './pages/Login';
+import Signup from './pages/Signup';
 import Main from './pages/Main';
-import { GlobalContext, GlobalContextDTO } from './state/GlobalContext';
+import { GlobalContext } from './state/GlobalContext';
 import { useState } from 'react';
 
 const Stack = createNativeStackNavigator();
@@ -14,8 +14,8 @@ export default function App() {
   return (
     <GlobalContext.Provider value={{placeholder, setPlaceholder}}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='login'>
-          <Stack.Screen name="login" component={Login}/>
+        <Stack.Navigator initialRouteName='signup'>
+          <Stack.Screen name="signup" component={Signup}/>
           <Stack.Screen name="main" component={Main}/>
         </Stack.Navigator>
       </NavigationContainer>

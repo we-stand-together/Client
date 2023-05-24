@@ -46,7 +46,7 @@ export default function App() {
     <PaperProvider theme={theme}>
     <GlobalContext.Provider value={{placeholder, setPlaceholder}}>
       <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator screenOptions={screenOptions} initialRouteName='main'>
+        <Stack.Navigator screenOptions={screenOptions} initialRouteName='onBoarding'>
           <Stack.Screen name="signup" component={Signup}/>
           <Stack.Screen name="main" component={Main}/>
           <Stack.Screen name="form" component={Form} />

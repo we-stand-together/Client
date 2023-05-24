@@ -7,18 +7,28 @@ import { StyleSheet } from 'react-native';
 import base from "../styles/base";
 
 interface OptionProps {
-    title: string,
+    title: string | null,
     iconName: any
     route: any
+    navigation: any
 }
 
 const Option: React.FunctionComponent<OptionProps> = (props) => {
+
+    const handleNextPage = () => {
+        if(props.route)
+            props.navigation.navigate(props.route);
+        else
+            console.log(`route ${props.route} doesnt exist!`)
+
+    }
+
     return (<View style={base.option}>
-        <IconButton 
-        mode='contained'
-        onPress={() => console.log("Pressed")} 
-        icon={props.iconName}
-        size={50}
+        <IconButton
+            mode='contained'
+            onPress={handleNextPage}
+            icon={props.iconName}
+            size={50}
         />
         <Text variant="bodyLarge">{props.title}</Text>
     </View>);

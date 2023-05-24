@@ -12,7 +12,7 @@ interface SignUp {
 
 const Signup: React.FunctionComponent<SignUp> = (props) => {
     const context = useContext(GlobalContext);
-    const [phoneNumber, setPhoneNumber] = useState<number | undefined>(undefined)
+    const [phoneNumber, setPhoneNumber] = useState<string | undefined>(undefined)
     const [passcode, setPasscode] = useState<number | undefined>(undefined)
 
     const handleRegister = () => {
@@ -36,7 +36,7 @@ const Signup: React.FunctionComponent<SignUp> = (props) => {
       <Text variant='bodyMedium'>
         We want to create a safe space for you, please enter a phone number and a passcode. If you already have a user, click Sign In.
       </Text>
-      <TextInput inputMode='numeric' onChangeText={(t) => setPhoneNumber(parseInt(t))} style={{width: '80%', marginTop: 20}} label='Phone Number'/>
+      <TextInput inputMode='numeric' onChangeText={(t) => setPhoneNumber(t)} style={{width: '80%', marginTop: 20}} label='Phone Number'/>
       <TextInput inputMode='numeric' onChangeText={(t) => setPasscode(parseInt(t))} style={{width: '80%', marginTop: 20}} label='Passcode' />
       <View style={base.row}>
         <Button onPress={handleRegister} style={{margin: 10}} mode='contained-tonal'>Sign Up</Button>

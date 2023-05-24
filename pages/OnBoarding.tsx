@@ -12,6 +12,7 @@ interface OnBoardingProps {
 const OnBoarding: React.FunctionComponent<OnBoardingProps> = (props) => {
     const [loading, setLoading] = useState(true)
     useEffect(() => {
+        // AsyncStorage.clear();
         checkLogin();
     }, []);
 

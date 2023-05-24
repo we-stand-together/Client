@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   centered: {
@@ -24,5 +24,10 @@ export default StyleSheet.create({
     color: '#6b2272',
     fontSize: 30,
     fontWeight: '600',
+  },
+  option: {
+    flexGrow: 1,
+    alignItems: 'center',
+    margin: 10
   }
 });

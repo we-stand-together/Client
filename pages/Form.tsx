@@ -7,7 +7,9 @@ import { GetFormQuestions, SubmitFormAnswers } from '../lib/api';
 import { GlobalContext } from '../state/GlobalContext';
 import base from '../styles/base';
 
-interface FormProps {}
+interface FormProps {
+    navigation: any
+}
 
 export interface Question {
     id: number,
@@ -77,6 +79,8 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
         console.log('reached final question. answers:', answers);
         SubmitFormAnswers(answers.filter(a => a.questionId > 0)).then(result => {
             //TODO: do something
+            context.setFormResults(result);
+            props.navigation.navigate('profile');
         });
     }
 

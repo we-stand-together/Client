@@ -79,7 +79,7 @@ export const SubmitFormAnswers = async (answers: Answer[]) => {
     }
 }
 
-export const Register = async (phoneNumber: string, password: string): Promise<string|null> => {
+export const Register = async (phoneNumber: string, password: string): Promise<string|undefined> => {
     try {
         const response = await axios.post('/register', {
             phoneNumber,
@@ -88,10 +88,10 @@ export const Register = async (phoneNumber: string, password: string): Promise<s
             baseURL: baseUrl
         });
 
-        const token = await GetToken(phoneNumber, parseInt(password)) as string;
+        const token = await GetToken(phoneNumber, parseInt(password));
         return token;
     } catch (e) {
         console.error(e);
-        return null;
+        return undefined;
     }
 }

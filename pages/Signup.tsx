@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext, useState } from 'react';
 import {ScrollView, View} from 'react-native';
 import {Button, Text, TextInput, Title} from 'react-native-paper';
-import { SignIn } from '../lib/auth';
+import { SignIn, SignUp } from '../lib/auth';
 import { GlobalContext } from '../state/GlobalContext';
 import base from '../styles/base';
 
@@ -15,9 +15,11 @@ const Signup: React.FunctionComponent<SignUp> = (props) => {
     const [phoneNumber, setPhoneNumber] = useState<string | undefined>(undefined)
     const [passcode, setPasscode] = useState<number | undefined>(undefined)
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         console.log('register pressed');
-        // TODO: handle signup
+        if (await SignUp(phoneNumber as string, `${passcode as number}`)) {
+          props.navigation.navigate('form');
+        }
     }
     const handleSignIn = async () => {
       console.log('sign in pressed', phoneNumber, passcode);

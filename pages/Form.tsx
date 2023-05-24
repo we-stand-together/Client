@@ -25,17 +25,7 @@ export interface Answer {
 
 const firstQuestions: Question[] = [
     {
-        id: -1, question: 'Who needs help?',
-        answers: [
-            {id: 1, answer: 'Request help for myself'}, {id: 2, answer: 'Request help for somebody else'
-}            ], 
-        nextQuestionId: [
-            {answerId: 1, questionId: -2},
-            {answerId: 2, questionId: -2}
-        ]
-    },
-    {
-        id: -2, question: 'Are they in immediate danger?',
+        id: -1, question: 'Are they in immediate danger?',
         answers: [
             {id: 1, answer: 'Yes'}, {id: 2, answer: 'No'}
         ], 
@@ -80,7 +70,7 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
         SubmitFormAnswers(answers.filter(a => a.questionId > 0)).then(result => {
             //TODO: do something
             context.setFormResults(result);
-            props.navigation.navigate('profile');
+            props.navigation.navigate('navbar');
         });
     }
 

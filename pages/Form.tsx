@@ -1,59 +1,131 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {View} from 'react-native';
 import {TextInput, Title, Text, Button} from 'react-native-paper';
+import { uid } from 'uid';
+import { Danger } from '../components/danger';
+import { GetFormQuestions, SubmitFormAnswers } from '../lib/api';
 import { GlobalContext } from '../state/GlobalContext';
 import base from '../styles/base';
 
 interface FormProps {}
 
-interface Question {
-    question: {id: number, text: string},
-    options: {id: number, text: string}[]
+export interface Question {
+    id: number,
+    question: string,
+    answers: {id: number, answer: string}[],
+    nextQuestionId: {answerId: number, questionId: number|null}[]
 }
-interface Answer {
+
+export interface Answer {
     questionId: number,
-    selectedOptionId: number
+    answerId: number
 }
+
+const firstQuestions: Question[] = [
+    {
+        id: -1, question: 'Who needs help?',
+        answers: [
+            {id: 1, answer: 'Request help for myself'}, {id: 2, answer: 'Request help for somebody else'
+}            ], 
+        nextQuestionId: [
+            {answerId: 1, questionId: -2},
+            {answerId: 2, questionId: -2}
+        ]
+    },
+    {
+        id: -2, question: 'Are they in immediate danger?',
+        answers: [
+            {id: 1, answer: 'Yes'}, {id: 2, answer: 'No'}
+        ], 
+        nextQuestionId: [
+            {answerId: 1, questionId: null},
+            {answerId: 2, questionId: 1}
+        ]
+    },
+]
 
 const Form: React.FunctionComponent<FormProps> = (props) => {
-    const context = useContext(GlobalContext);
-    const [currentQuestion, setCurrentQuestion] = useState(1);
+    const context = useContext(GlobalContext)
+    const [currentQuestionId, setCurrentQuestionId] = useState(firstQuestions[0].id);
+    const [dynQuestions, setDynQuestions] = useState<Question[]>(firstQuestions);
+    const [loading, setLoading] = useState(true);
+    const [showDanger, setShowDanger] = useState(false);
     const [answers, setAnswers] = useState<Answer[]>([]);
-    const firstQuestions: Question[] = [
-        {question: {id: 1, text: 'Who needs help?'}, options: [
-            {id: 1, text: 'Request help for myself'},
-            {id: 2, text: 'Request help for somebody else'}
-        ]},
-        {question: {id: 2, text: 'Are they in immediate danger?'}, options: [
-            {id: 1, text: 'Yes'},
-            {id: 2, text: 'No'}
-        ]}
-    ];
+    
+    useEffect(() => {
+        GetFormQuestions().then((questions) => {
+            console.log('questions in ui', questions)
+            if (questions) {
+                setDynQuestions(old => old.concat(questions));
+                setLoading(false);
+            };
+        })
+    }, []);
+
+    const previousQuestion = () => {
+        // const answerIndex = answers.findIndex(answer => answer.questionId === currentQuestion);
+        // const newAnswers = answers.splice(answerIndex, 1);
+        // setAnswers(newAnswers);
+        // setCurrentQuestion(currentQuestion - 1);
+    }
 
     const getCurrentQuestion = (): Question => {
-        return firstQuestions.find(question => question.question.id === currentQuestion) as Question;
+        return dynQuestions.find(question => question.id === currentQuestionId) as Question;
     }
-    const answerQuestion = (id: number): void => {
-        const newIndex = currentQuestion + 1;
-        // setAnswers([...answers, {questionId: currentQuestion, selectedOptionId: id}]);
-        answers.push({questionId: currentQuestion, selectedOptionId: id});
 
-        if (newIndex<= firstQuestions.length) {
-            console.log('moving to question', newIndex), 'total questions:', firstQuestions.length;
-            setCurrentQuestion(currentQuestion + 1)
-        } else {
-            console.log('no more questions. answers:', answers)
-            //TODO
+    const submitAnswers = () => {
+        console.log('reached final question. answers:', answers);
+        SubmitFormAnswers(answers.filter(a => a.questionId > 0)).then(result => {
+            //TODO: do something
+        });
+    }
+
+    const answerQuestion = (answerId: number): void => {
+        const currentQuestion = getCurrentQuestion();
+        setAnswers(old => [...old, {questionId: currentQuestion.id, answerId}])
+        
+        const nextQuestionId = currentQuestion.nextQuestionId.find(m => m.answerId === answerId)?.questionId;
+        console.log('next question id:', nextQuestionId)
+        if (!nextQuestionId) {
+            if (currentQuestion.id == -2) {
+                // special case: someone is in danger need to show special screen
+                console.log('DANGER!!');
+                setShowDanger(true);
+                return;
+            }
+
+            submitAnswers();
+            return
         }
+
+        const nextQuestionExists = dynQuestions.find(q => q.id === nextQuestionId);
+        if (!nextQuestionExists) {
+            console.error('could not find next question with id', nextQuestionId);
+            return;
+        }
+
+        setCurrentQuestionId(nextQuestionId as number);
     }
 
   return (
     <View style={base.centered}>
-        <Button onPress={() => {setCurrentQuestion(1); setAnswers([])}}>Reset</Button>
-      <Title>{getCurrentQuestion().question.text}</Title>
-      {getCurrentQuestion().options.map(option =>
-        <Button key={option.id} onPress={() => answerQuestion(option.id)} style={{margin: 10, padding: 20}} mode='contained'>{option.text}</Button>)}
+        {!loading && !showDanger && 
+        <>
+            {/* <Button onPress={() => previousQuestion()}>Previous</Button> */}
+            <Button onPress={() => {setCurrentQuestionId(-1); setAnswers([])}}>Reset</Button>
+            <Title>{getCurrentQuestion().question}</Title>
+            {getCurrentQuestion().answers.map(option =>
+                <Button key={option.id} onPress={() => answerQuestion(option.id)} style={{margin: 10, padding: 20}} mode='contained'>{option.answer}</Button>)
+            }
+        </>}
+        {!loading && showDanger && 
+        <>
+            <Button onPress={() => setShowDanger(false)}>Back</Button>
+            <Danger></Danger>
+        </>
+        }
     </View>
   );
 };
+
 export default Form;

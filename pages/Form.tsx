@@ -81,7 +81,7 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
         const nextQuestionId = currentQuestion.nextQuestionId.find(m => m.answerId === answerId)?.questionId;
         console.log('next question id:', nextQuestionId)
         if (!nextQuestionId) {
-            if (currentQuestion.id == -2) {
+            if (currentQuestion.id == -1) {
                 // special case: someone is in danger need to show special screen
                 console.log('DANGER!!');
                 setShowDanger(true);

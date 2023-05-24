@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
+import Home from '../pages/Home';
 
-const HomeRoute = () => <Text>Home</Text>;
+const HomeRoute = () => <Home/>
 
 const PhoneRoute = () => <Text>Phone</Text>;
 

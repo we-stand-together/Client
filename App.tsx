@@ -8,6 +8,8 @@ import { useState } from 'react';
 import Form from './pages/Form';
 import OnBoarding from './pages/OnBoarding';
 import BottomNavbar from './components/BottomNavbar';
+import CalendarPage from './pages/Calendar';
+import Profile from './pages/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +37,7 @@ const theme = {
 
 export default function App() {
   const [placeholder, setPlaceholder] = useState('my placeholder');
+  const [formResults, setFormResults] = useState([]);
 
   const screenOptions: NativeStackNavigationOptions = {
     title: "WST",
@@ -44,7 +47,7 @@ export default function App() {
 
   return (
     <PaperProvider theme={theme}>
-    <GlobalContext.Provider value={{placeholder, setPlaceholder}}>
+    <GlobalContext.Provider value={{placeholder, setPlaceholder, formResults, setFormResults}}>
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator screenOptions={screenOptions} initialRouteName='onBoarding'>
           <Stack.Screen name="signup" component={Signup}/>
@@ -52,6 +55,8 @@ export default function App() {
           <Stack.Screen name="form" component={Form} />
           <Stack.Screen name="onBoarding" component={OnBoarding}/>
           <Stack.Screen name='navbar' component={BottomNavbar} />
+          <Stack.Screen name='calendar' component={CalendarPage} />
+          <Stack.Screen name='profile' component={Profile} />
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalContext.Provider>
